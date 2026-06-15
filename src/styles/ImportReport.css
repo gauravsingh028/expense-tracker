@@ -1,0 +1,56 @@
+.import-report-container {
+  margin-bottom: 24px;
+}
+
+.toggle-report-btn {
+  background: rgba(236, 72, 153, 0.2);
+  color: #f472b6;
+  border: 1px solid #f472b6;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 16px;
+}
+
+.toggle-report-btn:hover {
+  background: rgba(236, 72, 153, 0.3);
+}
+
+.report-panel {
+  padding: 24px;
+  border-left: 4px solid #f472b6;
+}
+
+.report-panel h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.report-subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.report-table th, .report-table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.report-table th {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.report-table tr:hover td {
+  background: rgba(255,255,255,0.02);
+}

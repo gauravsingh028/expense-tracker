@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { expensesData } from './data';
+import { parseCSV } from './csvParser';
 import { calculateBalances, getTotalExpenses } from './utils';
 import DashboardStats from './components/DashboardStats';
 import ExpenseList from './components/ExpenseList';
 import Balances from './components/Balances';
 import AddExpenseModal from './components/AddExpenseModal';
+import ImportReport from './components/ImportReport';
 import './styles/App.css';
 
 function App() {
@@ -12,12 +13,20 @@ function App() {
   const [balances, setBalances] = useState({});
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [anomalies, setAnomalies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate data fetching
-    setExpenses(expensesData);
-    setBalances(calculateBalances(expensesData));
-    setTotalExpenses(getTotalExpenses(expensesData));
+    parseCSV('/expenses.csv').then(({ expenses: parsedExpenses, anomalies: parsedAnomalies }) => {
+      setExpenses(parsedExpenses);
+      setAnomalies(parsedAnomalies);
+      setBalances(calculateBalances(parsedExpenses));
+      setTotalExpenses(getTotalExpenses(parsedExpenses));
+      setIsLoading(false);
+    }).catch(err => {
+      console.error("Failed to parse CSV", err);
+      setIsLoading(false);
+    });
   }, []);
 
   const handleAddExpense = (newExpense) => {
@@ -46,18 +55,25 @@ function App() {
       </header>
 
       <main className="main-content">
-        <div className="top-section">
-          <DashboardStats totalExpenses={totalExpenses} balances={balances} />
-        </div>
+        {isLoading ? (
+          <div style={{ textAlign: 'center', padding: '40px' }}>Loading and parsing CSV...</div>
+        ) : (
+          <>
+            <ImportReport anomalies={anomalies} />
+            <div className="top-section">
+              <DashboardStats totalExpenses={totalExpenses} balances={balances} />
+            </div>
         
-        <div className="bottom-section">
-          <div className="left-panel">
-            <ExpenseList expenses={expenses} />
-          </div>
-          <div className="right-panel">
-            <Balances balances={balances} />
-          </div>
-        </div>
+            <div className="bottom-section">
+              <div className="left-panel">
+                <ExpenseList expenses={expenses} />
+              </div>
+              <div className="right-panel">
+                <Balances balances={balances} />
+              </div>
+            </div>
+          </>
+        )}
       </main>
 
       <AddExpenseModal 
