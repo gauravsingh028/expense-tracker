@@ -1,0 +1,52 @@
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.stat-card {
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+}
+
+.stat-card.primary-gradient::before {
+  background: linear-gradient(90deg, var(--primary-accent), #818cf8);
+}
+.stat-card.secondary-gradient::before {
+  background: linear-gradient(90deg, var(--secondary-accent), #f472b6);
+}
+.stat-card.tertiary-gradient::before {
+  background: linear-gradient(90deg, var(--tertiary-accent), #2dd4bf);
+}
+
+.stat-card h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.stat-amount {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stat-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+}

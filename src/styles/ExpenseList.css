@@ -1,0 +1,66 @@
+.expense-list-container {
+  padding: 24px;
+}
+
+.expense-list-container h2 {
+  font-size: 20px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.expense-table th {
+  padding: 16px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.expense-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s;
+}
+
+.expense-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.expense-table .amount {
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.badge-payer {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.split-avatars {
+  display: flex;
+}
+
+.split-avatars .avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 12px;
+  border: 2px solid var(--bg-color);
+  margin-left: -8px;
+}
+
+.split-avatars .avatar:first-child {
+  margin-left: 0;
+}
