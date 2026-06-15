@@ -4,6 +4,20 @@ import '../styles/ImportReport.css';
 export default function ImportReport({ anomalies }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const downloadReport = () => {
+    let csvContent = "data:text/csv;charset=utf-8,Row,Detected Issue,Action Taken\n";
+    anomalies.forEach(a => {
+      csvContent += `${a.row},"${a.issue}","${a.action}"\n`;
+    });
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "import_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (anomalies.length === 0) return null;
 
   return (
@@ -14,7 +28,10 @@ export default function ImportReport({ anomalies }) {
 
       {isOpen && (
         <div className="report-panel glass">
-          <h3>Data Import Anomaly Log</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <h3>Data Import Anomaly Log</h3>
+            <button onClick={downloadReport} className="download-btn">Download CSV</button>
+          </div>
           <p className="report-subtitle">The following issues were detected and auto-corrected during CSV ingestion:</p>
           
           <div className="table-responsive">
